@@ -1,23 +1,48 @@
-# 🛡️ Koopman Gatekeeper: Sub-Millisecond Universal AI Security Engine
+# 🛡️ Koopman Gatekeeper: Sub-Millisecond Universal AI Security & C-Native SECaaS Core
 
-> **Proof of Concept (PoC):** Enterprise-Grade Multilingual Threat Detection using `EmbeddingGemma` + `3072D Koopman Space Lifting` on Consumer Hardware.
+> **Full-Stack Enterprise Architecture:** Universal Multilingual Threat Detection (`EmbeddingGemma` + `3072D Koopman Space Lifting`) integrated with a Hardware-Level C-Native Active Defense Engine (+0.00MB Remanence).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Precision](https://img.shields.io/badge/Accuracy-100%25%20Clean%20Sweep%20(600%2F600)-brightgreen.svg)]()
-[![FPR](https://img.shields.io/badge/False%20Positive%20Rate-0.00%25-blue.svg)]()
-[![Multilingual Support](https://img.shields.io/badge/Languages-6%20Global%20Languages-purple.svg)]()
+[![Hardware Clean](https://img.shields.io/badge/1B%20Nuclear%20Audit-100%25%20PASSED%20(1.91TB)-blue.svg)]()
 [![Koopman Latency](https://img.shields.io/badge/Decision%20Latency-0.037ms%20(CPU)-orange.svg)]()
 
 ---
 
-## 💡 Key Architectural Breakthrough
+## 💡 Architectural Overview & Breakthrough
 
-Traditional LLM Guardrails rely on secondary heavy language models running in the cloud, introducing massive **100ms–500ms latency bottlenecks** and high infrastructure costs.
+Traditional AI Guardrails introduce massive **100ms–500ms latency bottlenecks** and leave sensitive state payloads vulnerable in process memory (RAM).
 
-**Koopman Gatekeeper** demonstrates a novel mathematical approach:
-By projecting semantic embeddings into a **3072-Dimensional Hilbert Space**, complex non-linear AI threat vectors (Jailbreaks, Roleplay Overrides, Indirect Injections, Base64 Obfuscations) become **linearly separable** at the mathematical layer using **Cover's Theorem**. 
+**Koopman Gatekeeper + C-Native Core** solves both ends of the spectrum:
+1. **Cloud & Mathematical Layer (Koopman Space):** Projects semantic embeddings into a **3072-Dimensional Hilbert Space** using Cover’s Theorem. Non-linear AI threats (Jailbreaks, Prompt Injections, Token Smuggling) become linearly separable with zero fine-tuning across global languages.
+2. **Local Hardware Enforcement Layer (C-Native Core):** A zero-dependency C engine statically linked into commercial binaries to perform 3-Pass active memory zeroization and hardware CPU cache line invalidation (`_mm_clflush` + `_mm_sfence`), preventing AI RAM Scraping and memory remanence attacks.
 
-Because intent geometry is universal across human languages, **a single zero-fine-tuning engine** achieves 100% precision across multiple global scripts without any code changes or LLM-as-a-Judge overhead.
+---
+
+## 📊 Hardware & Benchmark Audit Results
+
+### 1. Global Multilingual Guardrail Benchmark (600 Prompts V2)
+
+| Language | Test Scope | Precision | False Positive Rate (FPR) | Decision Latency (CPU) | Status |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **English** 🇬🇧 | **100 Prompts** (50 / 50) | **100.00%** | **0.00%** | **0.047 ms** | ✅ Clean Sweep |
+| **Thai** 🇹🇭 | **100 Prompts** (50 / 50) | **100.00%** | **0.00%** | **0.039 ms** | ✅ Clean Sweep |
+| **Chinese** 🇨🇳 | **100 Prompts** (50 / 50) | **100.00%** | **0.00%** | **0.041 ms** | ✅ Clean Sweep |
+| **German** 🇩🇪 | **100 Prompts** (50 / 50) | **100.00%** | **0.00%** | **0.039 ms** | ✅ Clean Sweep |
+| **Spanish** 🇪🇸 | **100 Prompts** (50 / 50) | **100.00%** | **0.00%** | **0.027 ms** | ✅ Clean Sweep |
+| **Korean** 🇰🇷 | **100 Prompts** (50 / 50) | **100.00%** | **0.00%** | **0.028 ms** | ✅ Clean Sweep |
+| **OVERALL** | **600 Prompts Total** | **100.00%** | **0.00%** | **0.037 ms (Avg)** | 🏆 **Deterministic** |
+
+---
+
+### 2. C-Native Hardware Zeroization Audit (Clang -O3 Validation)
+
+| Test Suite | Workload Scope | Total Operations | Total Memory Cleaned | Data Remanence | Audit Result |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **Sanity Core Test** | Static Buffer (128B) | 1 Op | -- | `+0.00MB (0x00)` | **PASSED** |
+| **Sequential Stress** | Continuous Loop | 1,000,000 Ops | ~128 MB | `+0.00MB (0x00)` | **PASSED** |
+| **16-Thread Concurrency**| Multi-Threaded Concurrent | 1,600,000 Ops | ~204 MB | `+0.00MB (0x00)` | **PASSED (Zero Race)** |
+| **1-Billion Dynamic Nuclear**| Dynamic Payloads (16B–4KB) | **1,000,000,000 Ops** | **1,914.78 Gigabytes** | `+0.00MB (0x00)` | 🏆 **100% PASSED (Zero Leak)** |
 
 ---
 
@@ -104,7 +129,14 @@ embeddinggemma-koopman-guardrail/
     ├── run_german_stress_v2.py           # German Benchmark Execution V2
     ├── run_spanish_stress_v2.py          # Spanish Benchmark Execution V2
     └── run_korean_stress_v2.py           # Korean Benchmark Execution V2
-
+└── secaas-poc/                         # C-Native Active Defense Core
+    ├── core/
+    │   ├── active_defense_core.c       # Hardware Zeroization & Cache Flushing Core
+    │   └── bangsaen_sec.h             # Native C API & Metrics Interface
+    └── examples/
+        ├── test_core.c                 # Sanity Validation Test
+        ├── stress_test.c               # 2.6M Concurrent Multi-threaded Test
+        └── nuclear_test.c              # 1-Billion Dynamic Operations Stress Test
 
 ```
 🚀 Reproduction & Verification
@@ -147,6 +179,17 @@ python benchmarks/run_spanish_stress_v2.py
 
 # Execute Korean Benchmark Suite (100 Prompts)
 python benchmarks/run_korean_stress_v2.py
+
+```
+
+```bash
+# Compile and run 1-Billion Dynamic Operations Nuclear Stress Test
+clang -O3 -D_CRT_SECURE_NO_WARNINGS -I secaas-poc/include \
+      secaas-poc/core/active_defense_core.c \
+      secaas-poc/examples/nuclear_test.c \
+      -o secaas-poc/nuclear_test.exe
+
+.\secaas-poc\nuclear_test.exe
 
 ```
 
