@@ -9,6 +9,46 @@
 
 ---
 
+## ⚙️ Model Access & Authentication Notes
+
+This repository supports a **Hybrid Engine** execution model (Ollama API or Native PyTorch via Hugging Face Transformers). Please take note of the following access requirements:
+
+### Option A: Running via Ollama (Recommended - No Token Required)
+If you run the engine with Ollama active in the background, Ollama handles model downloading internally:
+1. Ensure Ollama Desktop / Daemon is running (`ollama serve`)
+2. Pull the model once:
+   ```bash
+   ollama pull embeddinggemma 
+   ```
+###  Option B: Running via Native PyTorch / Transformers (Fallback Mode)
+Since Google's google/embeddinggemma-2b is a Gated Model on Hugging Face, attempting to download model weights directly via Native PyTorch without authentication will throw a 401 Unauthorized error.
+
+If you choose to run without Ollama background service, you must complete a one-time authentication:
+
+Accept the license terms on google/embeddinggemma-2b
+
+Authenticate your terminal using your Hugging Face Access Token:
+```bash
+huggingface-cli login
+```
+
+### 1. Runtime Environment Mismatch (PyTorch vs. Ollama)
+Please be aware that executing inference or feature extraction via different runtime environments may yield slightly different embedding vectors due to precision quantization and backend tensor transformations:
+- **Native PyTorch / Transformers (Recommended):** Provides full FP32/FP16 precision vector trajectories, which guarantees deterministic accuracy matching our primary benchmark results.
+- **Ollama API Wrapper (`embeddinggemma:latest`):** Ollama applies C++ backend quantization/conversion (e.g., BF16/INT8). This introduces slight vector space distortion, which may shift edge-case raw scores slightly near decision boundaries.
+
+> **Note:** If you reproduce benchmarks using Ollama instead of Native PyTorch, decision thresholds must be recalibrated accordingly.
+
+---
+
+### 2. Domain Calibration & Out-of-Distribution (OOD) Prompts
+The Koopman Guardrail Engine operates as an **Adaptive Mathematical Framework**, not a frozen static classifier. 
+
+- **No Universal Silver Bullet:** No fixed dataset or pre-set threshold covers 100% of domain-specific enterprise queries out-of-the-box.
+- **Calibrating OOD Queries:** If your production system encounters unseen query categories (e.g., benign emergency requests like *"gas leaks"* or obfuscated technical payloads), you must include representative samples in your local calibration dataset (`datasets/`).
+- **Deterministic Separation:** Once the decision space is calibrated with domain-specific centroids, the Koopman linear projection will reliably isolate threats with zero false positives.
+
+
 ## 💡 Architectural Overview & Breakthrough
 
 Traditional AI Guardrails introduce massive **100ms–500ms latency bottlenecks** and leave sensitive state payloads vulnerable in process memory (RAM).
