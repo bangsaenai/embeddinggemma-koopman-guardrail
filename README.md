@@ -192,19 +192,49 @@ embeddinggemma-koopman-guardrail/
 1. Prerequisites
 Install Ollama on your local machine and pull Google's embeddinggemma model: 
 
-
 ```bash
 ollama pull embeddinggemma 
 ```
+Run it!!!
 
 2. Clone Repository & Install Dependencies 
+## 🚀 Quick Start & Installation
 
+To avoid package conflicts and ensure deterministic environment isolation, please set up a dedicated virtual environment:
+
+### Clone the Repository
 ```bash
 git clone [https://github.com/bangsaenai/embeddinggemma-koopman-guardrail.git](https://github.com/bangsaenai/embeddinggemma-koopman-guardrail.git)
 cd embeddinggemma-koopman-guardrail
-
-pip install -r requirements.txt 
 ```
+
+Create and Activate Virtual Environment (Recommended) 
+On Linux / macOS: 
+
+```bash
+
+python3 -m venv venv
+source venv/bin/activate
+
+``` 
+
+On Windows (PowerShell / Command Prompt): 
+
+``` PowerShell
+
+python -m venv venv
+.\venv\Scripts\activate
+
+``` 
+
+Install Required Dependencies
+
+``` Bash
+pip install --upgrade pip
+pip install -r requirements.txt
+
+```
+
 
 3. Run Benchmark Suites On-Device (V2 Standard)
 To reproduce and verify the sub-millisecond decision latency (0.037ms avg) and 100% precision on your own CPU, execute any of the multilingual V2 test scripts:
