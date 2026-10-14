@@ -9,25 +9,33 @@
 
 ---
 
-## 🌍 Multilingual Intent Separation Benchmarks
+## 🌍 Multilingual Intent Separation Benchmarks & Real-World Boundaries
 
-The Koopman Space Engine performs **Intent Detection** by projecting high-dimensional semantic trajectories into a 3072D Hilbert Space. To validate universal applicability, we evaluated curated datasets across 3 diverse languages (100 Prompts per language: 50 Threat Payloads vs 50 Enterprise Safe Queries).
+The Koopman Space Engine performs **Intent Detection** by projecting high-dimensional semantic trajectories into a 3072D Hilbert Space. To demonstrate both theoretical capability and real-world boundaries, we evaluated curated datasets across 5 diverse languages (100 Prompts per language: 50 Threat Payloads vs 50 Enterprise Safe Queries).
 
-> 📌 **Note on Dataset Curation:** All prompts are domain-curated to evaluate real-world intent separation rather than random text noise.
+> 📌 **Engineering Realism Notice:** Achieveing 100% precision in controlled benchmark sets demonstrates mathematical separation within defined domain boundaries. However, as demonstrated in complex low-resource languages like Myanmar, no static security guardrail is 100% immune out-of-the-box. Production deployments require dynamic domain calibration.
 
-| Language | Test Suite Size | Precision | Recall (Sensitivity) | False Positive Rate | Avg Decision Time (CPU) |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| 🇸🇦 **Arabic** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | 0.057 ms |
-| 🇻🇳 **Vietnamese** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | 0.040 ms |
-| 🇯🇵 **Japanese** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | 0.036 ms |
-| 📊 **TOTAL** | **300 Prompts** | **100.00%** | **100.00%** | **0.00%** | **< 0.06 ms** |
+| Language | Test Suite Size | Precision | Recall (Sensitivity) | False Positive Rate | Status / Result Note |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| 🇹🇭 **Thai (V2)** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | Ideal Domain Separation |
+| 🇸🇦 **Arabic** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | Ideal Domain Separation |
+| 🇻🇳 **Vietnamese** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | Ideal Domain Separation |
+| 🇯🇵 **Japanese** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | Ideal Domain Separation |
+| 🇲🇲 **Myanmar** | 100 Prompts | **97.92%** | **94.00%** | **2.00%** | 🚨 **Real-World Boundary Break** (3 FN / 1 FP) |
+| 📊 **TOTAL** | **500 Prompts** | **99.59%** | **98.80%** | **0.40%** | **Realistic Multilingual Baseline** |
 
 ---
 
-### 💬 Community Discussion & Next Languages
-We are expanding our multilingual intent benchmarks! Which complex language or dialect would you like to see tested next in Koopman Space?
+### 🔬 Analysis of Real-World Limitations (The Myanmar Case Study)
 
-📩 **Suggest a Language / Request Custom Domain Calibration:** [drtanet@bangsaenai.com](mailto:drtanet@bangsaenai.com)
+When testing **Myanmar Script**, the underlying EmbeddingGemma tokenizer exposed semantic boundary limitations:
+1. **False Negatives (3 Prompts):** Obfuscated threats (e.g., government document forgery) were pulled into the Safe centroid due to heavy administrative terminology in the training corpus.
+2. **False Positives (1 Prompt):** Benign technical queries (e.g., "Contacting IT Support") triggered low-level threat boundaries due to overlapping technical keywords.
+
+**Conclusion:** Guardrail deployment is an ongoing calibration process, not a one-time static setup.
+
+📩 **Need Custom Domain Calibration for Your Enterprise?** Contact us at [drtanet@bangsaenai.com](mailto:drtanet@bangsaenai.com)
+
 
 
 
