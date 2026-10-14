@@ -34,7 +34,7 @@ huggingface-cli login
 
 ### 1. Runtime Environment Mismatch (PyTorch vs. Ollama)
 Please be aware that executing inference or feature extraction via different runtime environments may yield slightly different embedding vectors due to precision quantization and backend tensor transformations:
-- **Native PyTorch / Transformers (Recommended):** Provides full FP32/FP16 precision vector trajectories, which guarantees deterministic accuracy matching our primary benchmark results.
+- **Native PyTorch / Transformers :** Provides full FP32/FP16 precision vector trajectories, which guarantees deterministic accuracy matching our primary benchmark results.
 - **Ollama API Wrapper (`embeddinggemma:latest`):** Ollama applies C++ backend quantization/conversion (e.g., BF16/INT8). This introduces slight vector space distortion, which may shift edge-case raw scores slightly near decision boundaries.
 
 > **Note:** If you reproduce benchmarks using Ollama instead of Native PyTorch, decision thresholds must be recalibrated accordingly.
@@ -47,6 +47,15 @@ The Koopman Guardrail Engine operates as an **Adaptive Mathematical Framework**,
 - **No Universal Silver Bullet:** No fixed dataset or pre-set threshold covers 100% of domain-specific enterprise queries out-of-the-box.
 - **Calibrating OOD Queries:** If your production system encounters unseen query categories (e.g., benign emergency requests like *"gas leaks"* or obfuscated technical payloads), you must include representative samples in your local calibration dataset (`datasets/`).
 - **Deterministic Separation:** Once the decision space is calibrated with domain-specific centroids, the Koopman linear projection will reliably isolate threats with zero false positives.
+
+
+### 3. Proof-of-Concept (PoC) Disclaimer & Enterprise Consultation
+
+* **PoC Evaluation Only (Not Production-Ready):** The 100% precision metrics achieved in this repository demonstrate the mathematical validity of 3072D Koopman Space separation under specific benchmark configurations. **Do NOT deploy this static setup directly into a production environment out-of-the-box.**
+* **Out-of-Distribution (OOD) Sensitivity:** Unseen query structures, complex domain-specific vocabulary, or sophisticated obfuscation may result in misclassification if the decision space is not continuously calibrated.
+* **Get Expert Assistance:** Implementing a reliable, enterprise-grade AI Guardrail requires custom dataset curation and dynamic thresholding. For production deployment, integration, or custom calibration consulting, please contact us directly:
+
+📩 **Consultation & Advisory:** [drtanet@bangsaenai.com](mailto:drtanet@bangsaenai.com)
 
 
 ## 💡 Architectural Overview & Breakthrough
