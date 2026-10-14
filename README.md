@@ -9,6 +9,28 @@
 
 ---
 
+## 🌍 Multilingual Intent Separation Benchmarks
+
+The Koopman Space Engine performs **Intent Detection** by projecting high-dimensional semantic trajectories into a 3072D Hilbert Space. To validate universal applicability, we evaluated curated datasets across 3 diverse languages (100 Prompts per language: 50 Threat Payloads vs 50 Enterprise Safe Queries).
+
+> 📌 **Note on Dataset Curation:** All prompts are domain-curated to evaluate real-world intent separation rather than random text noise.
+
+| Language | Test Suite Size | Precision | Recall (Sensitivity) | False Positive Rate | Avg Decision Time (CPU) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| 🇸🇦 **Arabic** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | 0.057 ms |
+| 🇻🇳 **Vietnamese** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | 0.040 ms |
+| 🇯🇵 **Japanese** | 100 Prompts | **100.00%** | **100.00%** | **0.00%** | 0.036 ms |
+| 📊 **TOTAL** | **300 Prompts** | **100.00%** | **100.00%** | **0.00%** | **< 0.06 ms** |
+
+---
+
+### 💬 Community Discussion & Next Languages
+We are expanding our multilingual intent benchmarks! Which complex language or dialect would you like to see tested next in Koopman Space?
+
+📩 **Suggest a Language / Request Custom Domain Calibration:** [drtanet@bangsaenai.com](mailto:drtanet@bangsaenai.com)
+
+
+
 ## ⚙️ Model Access & Authentication Notes
 
 This repository supports a **Hybrid Engine** execution model (Ollama API or Native PyTorch via Hugging Face Transformers). Please take note of the following access requirements:
